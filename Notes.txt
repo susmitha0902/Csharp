@@ -1,0 +1,3 @@
+Git and Github:
+Git - It is a distributed version control tool
+Github - It is a platform where we can share,store and work together with others.
