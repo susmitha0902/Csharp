@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*1.
+•	You have a class which has methods for transaction for a banking system. (created earlier)
+•	Define your own methods for deposit money, withdraw money and balance in the account.
+•	Write your own new application Exception class called InsuffientBalanceException. 
+•	This new Exception will be thrown in case of withdrawal of money from the account where customer doesn’t have sufficient balance.
+•	Identify and categorize all possible checked and unchecked exception.*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
