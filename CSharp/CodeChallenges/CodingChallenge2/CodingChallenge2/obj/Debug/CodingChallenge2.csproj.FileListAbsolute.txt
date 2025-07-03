@@ -1,0 +1,6 @@
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\obj\Debug\CodingChallenge2.csproj.CoreCompileInputs.cache
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\bin\Debug\CodingChallenge2.exe.config
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\bin\Debug\CodingChallenge2.exe
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\bin\Debug\CodingChallenge2.pdb
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\obj\Debug\CodingChallenge2.exe
+C:\Training\Classwork\CSharp\CodeChallenges\CodingChallenge2\CodingChallenge2\obj\Debug\CodingChallenge2.pdb
