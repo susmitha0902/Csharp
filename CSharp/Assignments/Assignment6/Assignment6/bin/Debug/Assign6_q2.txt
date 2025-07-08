@@ -1,0 +1,5 @@
+Hello!
+This is assignment 6
+Question 2
+Writing an array of strings to the file example
+End of the file!
