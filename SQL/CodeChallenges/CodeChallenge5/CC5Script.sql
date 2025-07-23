@@ -61,8 +61,6 @@ add  deptno int;
  update employees set deptno =10 where empname ='Syam'
  update employees set deptno =30 
 
-
-
 --5.     Create a user defined function calculate Bonus for all employees of a  given dept using 	following conditions
 	--a.     For Deptno 10 employees 15% of sal as bonus.
 	--b.     For Deptno 20 employees  20% of sal as bonus
@@ -85,8 +83,16 @@ as begin
 	end
     return @bonus
 end
- 
 select empid , empname , deptno,Salary, dbo.calcbonus(deptno, salary) 'Bonus' from Employees
+
+
+
+
+
+
+
+
+
 
 --6. Create a procedure to update the salary of employee by 500 whose dept name is Sales and current salary is below 1500 (use emp table)
 
