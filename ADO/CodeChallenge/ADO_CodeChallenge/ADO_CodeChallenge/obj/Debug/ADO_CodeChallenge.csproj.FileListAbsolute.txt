@@ -1,0 +1,7 @@
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\bin\Debug\ADO_CodeChallenge.exe.config
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\bin\Debug\ADO_CodeChallenge.exe
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\bin\Debug\ADO_CodeChallenge.pdb
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\obj\Debug\ADO_CodeChallenge.csproj.AssemblyReference.cache
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\obj\Debug\ADO_CodeChallenge.csproj.CoreCompileInputs.cache
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\obj\Debug\ADO_CodeChallenge.exe
+C:\Users\susmithar\source\repos\ADO_CodeChallenge\ADO_CodeChallenge\obj\Debug\ADO_CodeChallenge.pdb
