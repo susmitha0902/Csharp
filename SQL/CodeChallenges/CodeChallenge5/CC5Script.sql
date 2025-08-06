@@ -1,8 +1,6 @@
 --CodeChallenge 2
-
 --1.Write a query to display your birthday( day of week)
 SELECT datename(WEEKDAY, '2003-10-07') AS Day_of_week
-
 
 --2.Write a query to display your age in days	
 SELECT DATEDIFF(DAY, CONVERT(DATE, '2003-10-07'), GETDATE()) AS Age_in_days
@@ -56,7 +54,6 @@ select * from employees;
 alter table employees
 add  deptno int;
  
-
  update employees set deptno =20 where empname ='Susmitha'
  update employees set deptno =10 where empname ='Syam'
  update employees set deptno =30 
@@ -84,15 +81,6 @@ as begin
     return @bonus
 end
 select empid , empname , deptno,Salary, dbo.calcbonus(deptno, salary) 'Bonus' from Employees
-
-
-
-
-
-
-
-
-
 
 --6. Create a procedure to update the salary of employee by 500 whose dept name is Sales and current salary is below 1500 (use emp table)
 

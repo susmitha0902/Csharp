@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Question8</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("input").change(function () {
+                $("body").append("<p style='color:red;'>Input field changed!</p>");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Change the Input Field</h2>
+    <input type="text" placeholder="Type your name" />
+</body>
+</html>
+
