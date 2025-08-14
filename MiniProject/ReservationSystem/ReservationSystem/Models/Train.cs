@@ -18,6 +18,7 @@ namespace ReservationSystem.Models
         public int TotalSeats{ get; set; }
         public int AvailableSeats{ get; set; }
         public decimal CostPerSeat { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }

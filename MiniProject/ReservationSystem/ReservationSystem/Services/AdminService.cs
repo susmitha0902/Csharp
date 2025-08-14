@@ -46,22 +46,49 @@ namespace ReservationSystem.Services
             using (var conn = DBConnection.GetConnection())
             {
                 conn.Open();
-                string query = @"INSERT INTO Train (TrainNo, TrainName, Source, Destination, Class, TotalSeats, AvailableSeats, CostPerSeat)
-                         VALUES (@TrainNo, @TrainName, @Source, @Destination, @Class, @TotalSeats, @AvailableSeats, @CostPerSeat)";
-                using (var cmd = new SqlCommand(query, conn))
+
+                // Check for duplicate train
+                string checkQuery = @"SELECT COUNT(*) FROM Train 
+                              WHERE TrainNo = @TrainNo 
+                                AND Source = @Source 
+                                AND Destination = @Destination 
+                                AND Class = @Class 
+                                AND IsDeleted = 0";
+
+                using (var checkCmd = new SqlCommand(checkQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@TrainNo", train.TrainNo);
-                    cmd.Parameters.AddWithValue("@TrainName", train.TrainName);
-                    cmd.Parameters.AddWithValue("@Source", train.Source);
-                    cmd.Parameters.AddWithValue("@Destination", train.Destination);
-                    cmd.Parameters.AddWithValue("@Class", train.Class);
-                    cmd.Parameters.AddWithValue("@TotalSeats", train.TotalSeats);
-                    cmd.Parameters.AddWithValue("@AvailableSeats", train.AvailableSeats);
-                    cmd.Parameters.AddWithValue("@CostPerSeat", train.CostPerSeat);
-                    cmd.ExecuteNonQuery();
+                    checkCmd.Parameters.AddWithValue("@TrainNo", train.TrainNo);
+                    checkCmd.Parameters.AddWithValue("@Source", train.Source);
+                    checkCmd.Parameters.AddWithValue("@Destination", train.Destination);
+                    checkCmd.Parameters.AddWithValue("@Class", train.Class);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        Console.WriteLine("Train already exists. Skipping insertion.");
+                        return;
+                    }
+                }
+                string insertQuery = @"INSERT INTO Train (TrainNo, TrainName, Source, Destination, Class, TotalSeats, AvailableSeats, CostPerSeat)
+                               VALUES (@TrainNo, @TrainName, @Source, @Destination, @Class, @TotalSeats, @AvailableSeats, @CostPerSeat)";
+
+                using (var insertCmd = new SqlCommand(insertQuery, conn))
+                {
+                    insertCmd.Parameters.AddWithValue("@TrainNo", train.TrainNo);
+                    insertCmd.Parameters.AddWithValue("@TrainName", train.TrainName);
+                    insertCmd.Parameters.AddWithValue("@Source", train.Source);
+                    insertCmd.Parameters.AddWithValue("@Destination", train.Destination);
+                    insertCmd.Parameters.AddWithValue("@Class", train.Class);
+                    insertCmd.Parameters.AddWithValue("@TotalSeats", train.TotalSeats);
+                    insertCmd.Parameters.AddWithValue("@AvailableSeats", train.AvailableSeats);
+                    insertCmd.Parameters.AddWithValue("@CostPerSeat", train.CostPerSeat);
+
+                    insertCmd.ExecuteNonQuery();
                 }
             }
         }
+
         public static List<Cancellation> GetAllCancellations()
         {
             var cancellations = new List<Cancellation>();
@@ -122,7 +149,7 @@ namespace ReservationSystem.Services
             {
                 conn.Open();
                 string query = @"UPDATE Train SET TrainNo=@TrainNo, TrainName=@TrainName, Source=@Source, Destination=@Destination,
-                         Class=@Class, TotalSeats=@TotalSeats, AvailableSeats=@AvailableSeats, CostPerSeat=@CostPerSeat
+                         Class=@Class, TotalSeats=@TotalSeats, AvailableSeats=@AvailableSeats, CostPerSeat=@CostPerSeat,IsDeleted = @IsDeleted
                          WHERE TrainID=@TrainID";
                 using (var cmd = new SqlCommand(query, conn))
                 {
@@ -135,20 +162,21 @@ namespace ReservationSystem.Services
                     cmd.Parameters.AddWithValue("@TotalSeats", train.TotalSeats);
                     cmd.Parameters.AddWithValue("@AvailableSeats", train.AvailableSeats);
                     cmd.Parameters.AddWithValue("@CostPerSeat", train.CostPerSeat);
+                    cmd.Parameters.AddWithValue("@IsDeleted", 0);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public static void SoftDeleteTrain(int trainId)
+        public static void SoftDeleteTrain(int trainNo)
         {
             using (var conn = DBConnection.GetConnection())
             {
                 conn.Open();
-                string query = "UPDATE Train SET IsDeleted = 1 WHERE TrainID = @TrainID";
+                string query = "UPDATE Train SET IsDeleted = 1 WHERE TrainNo = @TrainNo";
                 using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@TrainID", trainId);
+                    cmd.Parameters.AddWithValue("@TrainNo", trainNo);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -246,9 +274,9 @@ namespace ReservationSystem.Services
                         break;
 
                     case "6":
-                        Console.Write("Enter Train ID to soft delete: ");
-                        int trainId = int.Parse(Console.ReadLine());
-                        SoftDeleteTrain(trainId);
+                        Console.Write("Enter Train No to soft delete: ");
+                        int trainNo = int.Parse(Console.ReadLine());
+                        SoftDeleteTrain(trainNo);
                         Console.WriteLine("Train marked as deleted.");
                         break;
 

@@ -20,15 +20,19 @@ namespace ReservationSystem.Services
             using (var conn = DBConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select TrainID,TrainNo,TrainName,Source,Destination,class,TotalSeats,AvailableSeats,CostPerSeat from train where Source like @src and destination like @dst order by TrainNo,Class";
-                using (var cmd = new SqlCommand(query,conn))
+                string query = @"SELECT TrainID, TrainNo, TrainName, Source, Destination, Class, TotalSeats, AvailableSeats, CostPerSeat 
+                         FROM Train 
+                         WHERE Source LIKE @src AND Destination LIKE @dst AND IsDeleted = 0 
+                         ORDER BY TrainNo, Class";
+
+                using (var cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@src", srcPattern);
                     cmd.Parameters.AddWithValue("@dst", dstPattern);
 
-                    using(var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             results.Add(new Train
                             {
@@ -37,12 +41,11 @@ namespace ReservationSystem.Services
                                 TrainName = reader["TrainName"].ToString(),
                                 Source = reader["Source"].ToString(),
                                 Destination = reader["Destination"].ToString(),
-                                Class = reader["class"].ToString(),
+                                Class = reader["Class"].ToString(),
                                 TotalSeats = Convert.ToInt32(reader["TotalSeats"]),
                                 AvailableSeats = Convert.ToInt32(reader["AvailableSeats"]),
                                 CostPerSeat = Convert.ToDecimal(reader["CostPerSeat"])
-                            }) ;  
-
+                            });
                         }
                     }
                 }
@@ -50,15 +53,19 @@ namespace ReservationSystem.Services
             return results;
         }
 
+
         public void DisplayTrains(List<Train> trains)
         {
-            if(trains==null||trains.Count==0)
+            if (trains == null || trains.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("No trains found for that route");
                 Console.ResetColor();
                 return;
             }
+
+            // Optional: Filter out soft-deleted trains if IsDeleted is a property in Train class
+            trains = trains.Where(t => !t.IsDeleted).ToList();
 
             var groups = trains.GroupBy(t => new { t.TrainNo, t.TrainName, t.Source, t.Destination });
             foreach (var g in groups)
@@ -69,9 +76,9 @@ namespace ReservationSystem.Services
                 Console.WriteLine("======================================");
                 Console.ResetColor();
 
-                Console.WriteLine(String.Format("{0,-8} {1,-8} {2,-12} {3,-10}", "class", "Available", "TotalSeats", "Cost"));
+                Console.WriteLine(String.Format("{0,-8} {1,-8} {2,-12} {3,-10}", "Class", "Available", "TotalSeats", "Cost"));
 
-                foreach( var row in g)
+                foreach (var row in g)
                 {
                     Console.ForegroundColor = row.AvailableSeats > 0 ? ConsoleColor.Green : ConsoleColor.Red;
                     Console.WriteLine(String.Format("{0,-8} {1,-8} {2,-12} {3,-10}", row.Class, row.AvailableSeats, row.TotalSeats, row.CostPerSeat));
@@ -80,6 +87,7 @@ namespace ReservationSystem.Services
                 Console.WriteLine();
             }
         }
+
 
         public void BookTicket(int customerId)
         {
@@ -104,6 +112,15 @@ namespace ReservationSystem.Services
 
                 if (DateTime.TryParse(dateInput, out dateTravel))
                 {
+
+                    if (dateTravel.Date < DateTime.Today)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You cannot book tickets for past dates. Please enter a valid future date.");
+                        Console.ResetColor();
+                        continue;
+                    }
+
                     break;
                 }
                 else
@@ -128,7 +145,10 @@ namespace ReservationSystem.Services
                 conn.Open();
 
                 //Check availability and cost
-                string query = "select TrainID,AvailableSeats,TotalSeats,CostPerSeat from train where TrainNo=@TrainNo and class = @Class";
+                string query = @"SELECT TrainID, AvailableSeats, TotalSeats, CostPerSeat
+                 FROM Train 
+                 WHERE TrainNo = @TrainNo AND Class = @Class AND IsDeleted = 0";
+                
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@TrainNo", trainNo);
