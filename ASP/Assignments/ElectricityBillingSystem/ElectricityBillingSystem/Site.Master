@@ -1,0 +1,35 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="ElectricityBillingSystem.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Electricity Billing System</title>
+    <link id="themeCss" runat="server" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+        <!--Header-->
+        <div style ="background:#1e3a8a;color:white;padding:10px;">
+            <h2 style="text-align:center"> Electricity Billing System - Admin Portal</h2>
+            <asp:DropDownList ID="ddlThemes" runat="server" AutoPostBack="true"
+                OnSelectedIndexChanged =" ddlThemes_SelectedIndexChanged">
+                <asp:ListItem Text="Light" Value="Light"></asp:ListItem>
+                <asp:ListItem Text="Dark" Value="Dark"></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+        <!--Main Content-->
+        <div style ="margin:20px;">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        </div>
+
+        <!--Footer-->
+        <div runat="server" style="background:#1e3a8a;color:white;padding:5px;text-align:center;">
+            <small> 
+                &copy; 2025 Electricity Billing System
+            </small>
+        </div>
+    </form>
+</body>
+</html>

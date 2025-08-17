@@ -20,6 +20,8 @@ class varchar(20),
 TotalSeats int,
 AvailableSeats int,
 CostPerSeat decimal);
+ALTER TABLE Train ADD IsDeleted BIT DEFAULT 0;
+
 
 
 --RESERVATION TABLE
@@ -65,7 +67,7 @@ VALUES
 ('12345', 'Chennai Express', 'Chennai', 'Delhi', '3AC', 75, 75, 900);
 
 
-delete from train where TrainID in (7,9)
+
 -- Howrah Express - 23456
 INSERT INTO Train (TrainNo, TrainName, Source, Destination, Class, TotalSeats, AvailableSeats, CostPerSeat)
 VALUES
@@ -101,6 +103,25 @@ VALUES
 ('15655', 'Kamakhya–SVDK Express', 'Kamakhya', 'Katra', '2AC', 20, 20, 2000),
 ('15655', 'Kamakhya–SVDK Express', 'Kamakhya', 'Katra', '3AC', 30, 30, 1400);
 
-
+INSERT INTO Train (
+    TrainNo,
+    TrainName,
+    Source,
+    Destination,
+    class,
+    TotalSeats,
+    AvailableSeats,
+    CostPerSeat
+)
+VALUES (
+    '12347',
+    'Express',
+    'Visakhapatnam',
+    'Hyderabad',
+    'Sleeper',
+    10,
+    1,
+    350.00
+)
 
 
