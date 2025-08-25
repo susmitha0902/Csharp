@@ -1,0 +1,16 @@
+﻿@model MVC_CC_1.Models.CodeFirst.Movie
+
+<h2>Create Movie</h2>
+
+<form action="/Movie/Create" method="post">
+    <label>Title:</label>
+    <input type="text" name="MovieName" /><br />
+
+    <label>Director:</label>
+    <input type="text" name="DirectorName" /><br />
+
+    <label>Year:</label>
+    <input type="number" name="DateofRelease" /><br />
+
+    <input type="submit" value="Create" />
+</form>

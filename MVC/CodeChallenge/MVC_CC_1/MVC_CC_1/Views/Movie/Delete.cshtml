@@ -1,0 +1,9 @@
+﻿@model MVC_CC_1.Models.CodeFirst.Movie
+
+<h2>Delete Movie</h2>
+
+<form action="/Movie/DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.Mid" />
+    <input type="submit" value="Yes, Delete" />
+    <a href="/Movie/Index">Cancel</a>
+</form>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MVC_CC_1.Models.CodeFirst.Movie>
+
+<h2>All Movies</h2>
+<p>@Html.ActionLink("Create New Movie", "Create")</p>
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Year</th>
+        <th></th>
+    </tr>
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>@movie.Moviename</td>
+            <td>@movie.DirectorName</td>
+            <td>@movie.DateofRelease</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { mid = movie.Mid }) |
+                @Html.ActionLink("Delete", "Delete", new { mid = movie.Mid })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,21 @@
+﻿@model MVC_CC_1.Models.Customer
+@{
+    ViewBag.Title = "Cust_with_ID";
+}
+<h2>Customer with ID 10248</h2>
+@if (Model != null)
+{
+    <p><strong>Company:</strong> @Model.CompanyName</p>
+    <p><strong>Contact Name:</strong> @Model.ContactName</p>
+    <p><strong>Contact Title:</strong> @Model.ContactTitle</p>
+    <p><strong>Address:</strong> @Model.Address</p>
+    <p><strong>City:</strong> @Model.City</p>
+    <p><strong>Phone:</strong> @Model.Phone</p>
+    <p><strong>Country:</strong> @Model.Country</p>
+}
+else
+{
+    <p style="color:red;">There is no such customer for Order ID 10248.</p>
+}
+
+

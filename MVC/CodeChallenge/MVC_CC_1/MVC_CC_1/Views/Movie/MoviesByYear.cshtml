@@ -1,0 +1,17 @@
+﻿@model IEnumerable<MVC_CC_1.Models.CodeFirst.Movie>
+
+<h2>Movies Released</h2>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Director</th>
+    </tr>
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>@movie.Moviename</td>
+            <td>@movie.DirectorName</td>
+        </tr>
+    }
+</table>

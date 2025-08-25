@@ -1,0 +1,18 @@
+﻿@model MVC_CC_1.Models.CodeFirst.Movie
+
+<h2>Edit Movie</h2>
+
+<form action="/Movie/Edit" method="post">
+    <input type="hidden" name="Id" value="@Model.Mid" />
+
+    <label>Title:</label>
+    <input type="text" name="Title" value="@Model.Moviename" /><br />
+
+    <label>Director:</label>
+    <input type="text" name="Director" value="@Model.DirectorName" /><br />
+
+    <label>Year:</label>
+    <input type="number" name="Year" value="@Model.DateofRelease" /><br />
+
+    <input type="submit" value="Save" />
+</form>
